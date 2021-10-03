@@ -17,6 +17,7 @@ public struct NavigationHelper {
         let dest = Wrapper(selection: selection, destination: destination)
 
         return NavigationLink("", destination: dest, isActive: activeBinding)
+            .hidden()
     }
     
 }
