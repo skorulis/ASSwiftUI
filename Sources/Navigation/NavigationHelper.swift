@@ -15,6 +15,7 @@ public struct NavigationHelper {
         }
         
         let dest = Wrapper(selection: selection, destination: destination)
+            .environment(\.as_presentation, Presentation(activeBinding: activeBinding))
 
         return NavigationLink("", destination: dest, isActive: activeBinding)
             .hidden()
@@ -41,7 +42,34 @@ private extension NavigationHelper {
                 builder(value)
             }
         }
-        
-        
     }
+}
+
+public extension NavigationHelper {
+    
+    struct Presentation {
+        let activeBinding: Binding<Bool>
+        
+        static var empty: Presentation {
+            return Presentation(activeBinding: .constant(false))
+        }
+        
+        public func dismiss() {
+            activeBinding.wrappedValue = false
+        }
+    }
+    
+}
+
+// MARK: - Environment key
+
+public struct InvisibleNavigationPresentation: EnvironmentKey {
+    public static let defaultValue = NavigationHelper.Presentation.empty
+}
+
+public extension EnvironmentValues {
+  var as_presentation: NavigationHelper.Presentation {
+    get { self[InvisibleNavigationPresentation.self] }
+    set { self[InvisibleNavigationPresentation.self] = newValue }
+  }
 }
