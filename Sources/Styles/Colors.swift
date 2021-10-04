@@ -19,10 +19,14 @@ public extension Color {
     
     // MARK: - Success
     
+    static let success100 = Color("Success100", bundle: .module)
+    static let success300 = Color("Success300", bundle: .module)
     static let success500 = Color("Success500", bundle: .module)
     
     // MARK: - Danger
     
+    static let danger100 = Color("Danger100", bundle: .module)
+    static let danger300 = Color("Danger300", bundle: .module)
     static let danger500 = Color("Danger500", bundle: .module)
     
     // MARK: - Warning
@@ -32,8 +36,12 @@ public extension Color {
     // MARK: - Neutrals
     
     static let neutral100 = Color("Neutral100", bundle: .module)
+    static let neutral500 = Color("Neutral500", bundle: .module)
+    static let neutral900 = Color("Neutral900", bundle: .module)
     
     
+    static var darkShadow: Color { .neutral900.opacity(0.5) }
+    static var lightShadow: Color { .neutral100.opacity(0.5) }
     
     
 }
@@ -53,25 +61,31 @@ struct Colors_Previews: PreviewProvider {
     }
     
     private static var neutral: some View {
-        VStack {
+        VStack(spacing: 0) {
             row(.neutral100, "Neutral 100")
+            row(.neutral500, "Neutral 500")
+            row(.neutral900, "Neutral 900")
         }
     }
     
     private static var danger: some View {
-        VStack {
+        VStack(spacing: 0) {
+            row(.danger100, "Danger 100")
+            row(.danger300, "Danger 300")
             row(.danger500, "Danger 500")
         }
     }
     
     private static var success: some View {
-        VStack {
+        VStack(spacing: 0) {
+            row(.success100, "Success 100")
+            row(.success300, "Success 300")
             row(.success500, "Success 500")
         }
     }
     
     private static var primary: some View {
-        VStack {
+        VStack(spacing: 0) {
             row(.primary100, "Primary 100")
             row(.primary500, "Primary 500")
             row(.primary900, "Primary 900")
