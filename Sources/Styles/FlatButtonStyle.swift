@@ -95,7 +95,7 @@ public extension FlatButtonStyle {
     
 }
 
-// MARK: - Previewss
+// MARK: - Previews
 
 struct FlatButtonStyle_Previews: PreviewProvider {
     
