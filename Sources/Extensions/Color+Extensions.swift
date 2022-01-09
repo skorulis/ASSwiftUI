@@ -93,6 +93,22 @@ public extension Color {
         return "#\(hex)"
     }
     
+    var luminance: CGFloat {
+        let (rI, gI, bI, _) = components
+        let r = convertSrgbLuminance(rI)
+        let g = convertSrgbLuminance(gI)
+        let b = convertSrgbLuminance(bI)
+        return (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
+    }
+    
+    private func convertSrgbLuminance(_ input: CGFloat)  -> CGFloat {
+        if (input > 0.03928) {
+            return pow((input+0.055)/1.055,2.4);
+        } else {
+            return input / 12.92;
+        }
+    }
+    
     
     
 }

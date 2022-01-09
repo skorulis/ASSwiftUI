@@ -21,4 +21,8 @@ final class ColorExtensionTests: XCTestCase {
         XCTAssertEqual(color?.hexString, "#AABBCC")
     }
     
+    func test_luminance() {
+        XCTAssertEqual(Color.white.luminance, 1, accuracy: 0.00001)
+        XCTAssertEqual(Color.black.luminance, 0)
+    }
 }
