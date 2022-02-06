@@ -18,6 +18,8 @@ typealias NativeColor = UIColor
 typealias NativeColor = NSColor
 #endif
 
+import simd
+
 public extension Color {
     
     init(_ hex: UInt, alpha: Double = 1) {
@@ -80,6 +82,11 @@ public extension Color {
         }
 
         return (r, g, b, o)
+    }
+    
+    var simd: simd_float4 {
+        let comps = components
+        return simd_float4(x: Float(comps.red), y: Float(comps.green), z: Float(comps.blue), w: Float(comps.opacity))
     }
     
     var hexString: String {
