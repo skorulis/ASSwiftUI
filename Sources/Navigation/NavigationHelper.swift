@@ -6,7 +6,7 @@ import SwiftUI
 public struct NavigationHelper {
     
     public static func invisible<V, D: View>(selection: Binding<V?>, destination: @escaping (V) -> D) -> some View {
-        let activeBinding = Binding {
+        let activeBinding = Binding<Bool> {
             return selection.wrappedValue != nil
         } set: { value in
             if !value {
@@ -18,6 +18,14 @@ public struct NavigationHelper {
             .environment(\.as_presentation, Presentation(activeBinding: activeBinding))
 
         return NavigationLink("", destination: dest, isActive: activeBinding)
+            .hidden()
+    }
+    
+    public static func invisible<D: View>(selection: Binding<Bool>, destination: @escaping () -> D) -> some View {
+        let dest = Wrapper(selection: selection, destination: destination)
+            .environment(\.as_presentation, Presentation(activeBinding: activeBinding))
+
+        return NavigationLink("", destination: dest, isActive: selection)
             .hidden()
     }
     
