@@ -22,8 +22,8 @@ public struct NavigationHelper {
     }
     
     public static func invisible<D: View>(selection: Binding<Bool>, destination: @escaping () -> D) -> some View {
-        let dest = Wrapper(selection: selection, destination: destination)
-            .environment(\.as_presentation, Presentation(activeBinding: activeBinding))
+        let dest = BoolWrapper(selection: selection, destination: destination)
+            .environment(\.as_presentation, Presentation(activeBinding: selection))
 
         return NavigationLink("", destination: dest, isActive: selection)
             .hidden()
@@ -48,6 +48,23 @@ private extension NavigationHelper {
         var body: some View {
             if let value = selection {
                 builder(value)
+            }
+        }
+    }
+    
+    struct BoolWrapper<D: View>: View {
+        
+        @Binding var selection: Bool
+        var builder: () -> D
+        
+        init(selection: Binding<Bool>, destination: @escaping () -> D) {
+            _selection = selection
+            self.builder = destination
+        }
+        
+        var body: some View {
+            if selection {
+                builder()
             }
         }
     }
