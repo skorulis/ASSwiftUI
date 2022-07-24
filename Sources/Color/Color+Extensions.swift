@@ -1,9 +1,4 @@
-//
-//  Color+Extensions.swift
-//  
-//
 //  Created by Alexander Skorulis on 19/12/21.
-//
 
 import SwiftUI
 #if canImport(UIKit)
@@ -116,6 +111,26 @@ public extension Color {
         }
     }
     
+    func darken(percentage: CGFloat) -> Color {
+        let uiColor = UIColor(self).darken(percentage: percentage)
+        return Color(uiColor: uiColor)
+    }
     
+    func lighten(percentage: CGFloat) -> Color {
+        let uiColor = UIColor(self).lighten(percentage: percentage)
+        return Color(uiColor: uiColor)
+    }
+    
+    var hsba: (CGFloat, CGFloat, CGFloat, CGFloat) {
+        return UIColor(self).hsba
+    }
+    
+    var brightness: CGFloat {
+        return UIColor(self).brightness
+    }
+    
+    var saturation: CGFloat {
+        return UIColor(self).saturation
+    }
     
 }

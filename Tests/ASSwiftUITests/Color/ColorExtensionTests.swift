@@ -25,4 +25,10 @@ final class ColorExtensionTests: XCTestCase {
         XCTAssertEqual(Color.white.luminance, 1, accuracy: 0.00001)
         XCTAssertEqual(Color.black.luminance, 0)
     }
+    
+    func test_brightness() {
+        XCTAssertEqual(Color.white.brightness, 1, accuracy: 0.001)
+        XCTAssertEqual(Color.black.brightness, 0)
+    }
+    
 }
