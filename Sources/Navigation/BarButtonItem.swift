@@ -7,7 +7,8 @@ import SwiftUI
 
 public enum BarButtonItem {
     
-    case back(_ action: () -> Void)
+    case back(_ action: (() -> Void)? = nil)
+    case title(_ text: String)
     
 }
 
@@ -19,19 +20,50 @@ extension BarButtonItem: View {
     public var body: some View {
         switch self {
         case .back(let action):
-            backButton(action)
+            BackButton(action: action)
+        case .title(let text):
+            title(text)
         }
     }
     
-    private func backButton(_ action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Image(systemName: "chevron.backward")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 20, height: 20)
-                .foregroundColor(.black)
+    private func title(_ text: String) -> some View {
+        Text(text)
+            .font(.headline)
+            .foregroundColor(.primary)
+    }
+}
+
+// MARK: - Inner types
+
+private extension BarButtonItem {
+    
+    struct BackButton: View {
+        
+        let action: (() -> Void)?
+        @Environment(\.as_presentation) private var presentation
+        
+        init(action: (() -> Void)? ) {
+            self.action = action
         }
-        .frame(width: 40, height: 40)
+        
+        var body: some View {
+            Button(action: back) {
+                Image(systemName: "chevron.backward")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(.black)
+            }
+            .frame(width: 40, height: 40)
+        }
+        
+        private func back() {
+            if let action = action {
+                action()
+            } else {
+                presentation.dismiss()
+            }
+        }
     }
 }
 
