@@ -44,16 +44,27 @@ extension NavBar: View {
         }
     }
     
+    @ViewBuilder
     private var items: some View {
-        HStack {
-            self.left
-            Spacer()
-            self.mid
-            Spacer()
-            self.right
-            
+        if #available(iOS 16, *) {
+            NavBarLayout {
+                content
+            }
+        } else {
+            HStack {
+                content
+            }
+            .padding(.horizontal, 8)
         }
-        .padding(.horizontal, 8)
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        self.left
+        Spacer(minLength: 8)
+        self.mid
+        Spacer(minLength: 8)
+        self.right
     }
 }
 
@@ -74,6 +85,19 @@ struct NavBar_Previews: PreviewProvider {
             NavBar(left: BarButtonItem.back({}),
                    mid: Text("Center me here").multilineTextAlignment(.center),
                    right: Text("Right text"))
+            
+            NavBar(left: EmptyView(),
+                   mid: Text("Center me here").multilineTextAlignment(.center),
+                   right: Text("Right text that pushes"))
+            
+            NavBar(left: Text("Left text that pushes"),
+                   mid: Text("Center me here").multilineTextAlignment(.center),
+                   right: EmptyView())
+            
+            NavBar(left: Text("Left text that pushes"),
+                   mid: Text("Center me here").multilineTextAlignment(.center),
+                   right: Text("Right text that pushes"))
+            
             Spacer()
         }
         
