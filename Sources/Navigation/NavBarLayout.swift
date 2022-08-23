@@ -29,7 +29,6 @@ struct NavBarLayout: Layout {
         
         var middleView: LayoutSubview?
         
-        print("B: \(bounds) \(subviews.count)")
         for sub in subviews {
             let minSize = sub.sizeThatFits(.unspecified)
             let maxSize = sub.sizeThatFits(proposal)
