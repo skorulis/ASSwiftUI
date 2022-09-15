@@ -25,6 +25,13 @@ extension NavBar where Mid == EmptyView, Right == EmptyView {
     }
 }
 
+extension NavBar where Left == EmptyView, Right == EmptyView {
+    
+    public init(mid: Mid) {
+        self.init(left: EmptyView(), mid: mid, right: EmptyView())
+    }
+}
+
 extension NavBar where Right == EmptyView {
     
     public init(left: Left, mid: Mid) {
