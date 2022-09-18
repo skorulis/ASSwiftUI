@@ -8,6 +8,7 @@ import SwiftUI
 public enum BarButtonItem {
     
     case back(_ action: (() -> Void)? = nil)
+    case close(_ action: () -> Void)
     case title(_ text: String)
     
 }
@@ -21,6 +22,8 @@ extension BarButtonItem: View {
         switch self {
         case .back(let action):
             BackButton(action: action)
+        case .close(let action):
+            IconButton(action: action, image: Image(systemName: "xmark"))
         case .title(let text):
             title(text)
         }
@@ -63,6 +66,30 @@ private extension BarButtonItem {
             } else {
                 presentation.dismiss()
             }
+        }
+    }
+    
+    struct IconButton: View {
+        
+        private let action: () -> Void
+        private let image: Image
+        
+        init(action: @escaping () -> Void,
+             image: Image
+        ) {
+            self.action = action
+            self.image = image
+        }
+        
+        var body: some View {
+            Button(action: action) {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(.black)
+            }
+            .frame(width: 40, height: 40)
         }
     }
 }
