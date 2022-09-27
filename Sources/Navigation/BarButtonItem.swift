@@ -10,6 +10,7 @@ public enum BarButtonItem {
     case back(_ action: (() -> Void)? = nil)
     case close(_ action: () -> Void)
     case title(_ text: String)
+    case iconButton(_ image: Image, () -> Void)
     
 }
 
@@ -26,6 +27,8 @@ extension BarButtonItem: View {
             IconButton(action: action, image: Image(systemName: "xmark"))
         case .title(let text):
             title(text)
+        case .iconButton(let image, let action):
+            IconButton(action: action, image: image)
         }
     }
     
