@@ -25,12 +25,12 @@ extension UIColor {
     }
     
     func darken(percentage: CGFloat) -> UIColor {
-        assert(percentage > 0, "Percentage must be positive")
+        assert(percentage >= 0, "Percentage must be positive")
         return adjust(percentage: -percentage)
     }
     
     func lighten(percentage: CGFloat) -> UIColor {
-        assert(percentage > 0, "Percentage must be positive")
+        assert(percentage >= 0, "Percentage must be positive")
         return adjust(percentage: percentage)
     }
     
