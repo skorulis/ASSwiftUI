@@ -116,6 +116,11 @@ public extension Color {
         return Color(uiColor: uiColor)
     }
     
+    func mix(other: Color, pct: CGFloat) -> Color {
+        let uiColor = UIColor(self).mix(other: UIColor(other), pct: pct)
+        return Color(uiColor: uiColor)
+    }
+    
     func lighten(percentage: CGFloat) -> Color {
         let uiColor = UIColor(self).lighten(percentage: percentage)
         return Color(uiColor: uiColor)
