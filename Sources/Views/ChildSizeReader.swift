@@ -34,6 +34,12 @@ public struct ChildSizeReader<Content: View>: View {
     }
 }
 
+public extension View {
+    func readSize(size: Binding<CGSize>) -> some View {
+        ChildSizeReader(size: size, content: {self})
+    }
+}
+
 struct SizePreferenceKey: PreferenceKey {
     typealias Value = CGSize
     static var defaultValue: Value = .zero
